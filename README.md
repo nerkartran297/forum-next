@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dev Overflow - StackOverflow Clone
 
-## Getting Started
+Welcome to Dev Overflow - a comprehensive StackOverflow-like platform created as part of the "Ultimate Next.js 14 Course" by JS Mastery. This app is built with Next.js, utilizing cutting-edge web development techniques to provide a feature-rich experience.
 
-First, run the development server:
+## Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Cutting-edge Web Development:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Next.js Mastery**: Mastered the Next.js framework, exploring routing, authentication, and real-time events.
+-   **UI/UX Optimization**: Extensive focus on user interface and user experience for seamless navigation.
+-   **Form Handling**: Efficient form handling using react-hook-form and zod for validation.
+-   **Open AI Integration**: Leveraged Open AI for generating automated answers.
+-   **SEO Optimization**: Implemented SEO best practices for better visibility.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Advanced Functionality:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Recommendation System**: Unique system for recommending posts.
+-   **Global Database Data Fetching**: Effortlessly retrieve global database information.
+-   **AI-Generated Answers**: Innovative feature providing AI-generated answers to questions.
+-   **Badge & Reputation System**: Recognition system for user contributions.
+-   **Views and Voting Mechanism**: Engaging user interaction features.
+-   **Filter and Pagination**: Enhanced search capabilities for a seamless experience.
 
-## Learn More
+## Contents:
 
-To learn more about Next.js, take a look at the following resources:
+This repository contains the source code and related files for the Dev Overflow app. The app is deployed and accessible at [Dev Overflow](https://utkarsh-dev-overflow.vercel.app/).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-   **NMongoDB**: Document database for storing and managing app data.
+-   **ESLint**: JavaScript linting tool for code consistency and error checking.
+-   **ReactJS**: JavaScript library for building interactive UIs.
+-   **Mongoose**: Object Data Modeling (ODM) library for MongoDB and Node.js.
+-   **Next.js**: React framework for server-side rendering and routing.
+-   **Prettier**: Code formatter for ensuring consistent code style.
+-   **RapidAPI**: Platform for accessing external APIs.
+-   **Tailwind CSS**: Utility-first CSS framework for quick styling.
+-   **Zod**: TypeScript-first schema validation library for form handling.
+-   **React Hook Form**: React library for building forms with hooks.
+-   **Radix UI**: Design system for building accessible UI components.
+-   **ClerkAuth**: Authentication service for user authentication and management.
+-   **Shadcn UI**: UI library for creating interactive components and animations.
+-   **TypeScript**: Statically typed superset of JavaScript for enhanced code quality.
 
-## Deploy on Vercel
+Explore the source code and delve into the world of modern web development with Dev Overflow!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Home Page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Home Page](./assets//home_page.png)
+
+### Community Page
+
+![Community Page](./assets/community_page.png)
+
+### Collections Page
+
+![Collections Page](./assets/collections_page.png)
+
+### Find Jobs Page
+
+![Jobs Page](./assets/jobs_page.png)
+
+### Tags Page
+
+![Tags Page](./assets/tags_page.png)
+
+### Profile Page
+
+![Profile Page](./assets/profile_page.png)
+
+### Ask a Question Page
+
+![Ask a Question Page](./assets/ask_a_question_page.png)
+
+### Question Details Page
+
+![Question Details Page](./assets/question_details_page.png)
