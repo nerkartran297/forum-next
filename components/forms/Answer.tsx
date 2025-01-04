@@ -136,7 +136,7 @@ const Answer = ({
                 // Format code blocks
                 .replace(
                     /```(\w+)?\n([\s\S]*?)```/gm,
-                    (_, lang, code) => `
+                    (_: any, lang: any, code: any) => `
                     <pre class="language-${lang || "plaintext"}">${code.trim()}</pre>
                 `
                 )
