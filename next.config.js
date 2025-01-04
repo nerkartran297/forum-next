@@ -19,12 +19,14 @@ const nextConfig = {
       },
     ],
   },
-  // Thêm các tối ưu cho production
-  poweredByHeader: false,
-  compress: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+  webpack: (config, { isServer, dev }) => {
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        'scheduler/tracing': 'scheduler/tracing-profiling',
+      });
+    }
+    return config;
+  }
 };
 
 module.exports = nextConfig;
