@@ -6,7 +6,6 @@ const nextConfig = {
   experimental: {
     mdxRs: true,
     serverComponentsExternalPackages: ["mongoose"],
-    serverActions: true,  // thêm này để tối ưu server actions
   },
   images: {
     remotePatterns: [
@@ -25,19 +24,6 @@ const nextConfig = {
   compress: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-  // Thêm config cho webpack để tối ưu bundle size
-  webpack: (config, { dev, isServer }) => {
-    // Chỉ tối ưu ở production
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      });
-    }
-    return config;
   },
 };
 
