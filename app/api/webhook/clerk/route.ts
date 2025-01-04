@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-export const maxDuration = 25;
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 

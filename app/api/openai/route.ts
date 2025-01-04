@@ -1,4 +1,3 @@
-export const maxDuration = 25;
 import { NextResponse } from "next/server";
 const config = {
     apiKey: process.env.DEEPINFRA_API_KEY as string,
