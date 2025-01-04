@@ -110,6 +110,12 @@ const Answer = ({
         const editor = editorRef.current as any;
         const currentContent = editor.getContent({ format: "text" });
 
+        let questionString;
+
+        if (currentContent !== "")
+            questionString = `This is the question: ${question}. Here is my current idea: ${currentContent}`;
+        else questionString = question;
+
         try {
             const response = await fetch("/api/openai", {
                 method: "POST",
@@ -117,7 +123,7 @@ const Answer = ({
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    question: `This is the question: ${question}. Here is my current idea: ${currentContent}`,
+                    question: questionString,
                 }),
             });
 
