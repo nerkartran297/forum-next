@@ -8,8 +8,13 @@ export const themes: ThemeOption[] = [
 
 export const sidebarLinks: SidebarLink[] = [
     {
-        imgURL: "/assets/icons/home.svg",
+        imgURL: "/assets/icons/star.svg",
         route: "/",
+        label: "Dashboard",
+    },
+    {
+        imgURL: "/assets/icons/home.svg",
+        route: "/home",
         label: "Home",
     },
     {
