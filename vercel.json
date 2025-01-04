@@ -1,7 +1,18 @@
 {
     "functions": {
-        "app/api/**/*": {
-            "maxDuration": 30
+        "app/api/**/*.ts": {
+            "memory": 1024,
+            "maxDuration": 10
+        },
+        "app/(home)/page.tsx": {
+            "memory": 1024,
+            "maxDuration": 20
         }
-    }
+    },
+    "crons": [
+        {
+            "path": "/api/cron/cache-cleanup",
+            "schedule": "0 0 * * *"
+        }
+    ]
 }

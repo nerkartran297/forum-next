@@ -19,6 +19,7 @@ import { HomePageFilters } from "@/constants/filters";
 
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
+import AskQuestionButton from "@/components/shared/AskQuestionButton";
 
 export const metadata: Metadata = {
     title: "Home — DevOverflow",
@@ -55,14 +56,15 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
                 <h1 className="h1-bold text-dark100_light900">All Questions</h1>
 
-                <Link
+                {/* <Link
                     href="/ask-question"
                     className="flex justify-end max-sm:w-full"
                 >
                     <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
                         Ask a Question
                     </Button>
-                </Link>
+                </Link> */}
+                <AskQuestionButton />
             </div>
 
             <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
