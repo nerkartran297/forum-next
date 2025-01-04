@@ -25,7 +25,6 @@ import { createAnswer, editAnswer } from "@/lib/actions/answer.action";
 import { AnswerValidation } from "@/lib/validations";
 
 import type { QuestionId } from "@/lib/actions/shared.types";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 interface Props extends QuestionId {
     type?: string;
