@@ -4,17 +4,21 @@ let isConnected: boolean = false;
 
 export const connectToDatabase = async () => {
   mongoose.set("strictQuery", true);
-  if (!process.env.MONGODB_URL) {
-    return console.error("MISSING MONGODB_URL");
-  }
-  if (isConnected) {
-    return;
-  }
+
+  if (!process.env.MONGODB_URL)
+    return console.log("Missing environment variable: MONGODB_URL");
+
+  if (isConnected) return;
+
   try {
-    await mongoose.connect(process.env.MONGODB_URL, { dbName: "test" });
+    await mongoose.connect(process.env.MONGODB_URL, {
+      dbName: "DevOverflow",
+    });
+
     isConnected = true;
-    console.info("MongoDB is connected");
+
+    console.log("MongoDB is connected");
   } catch (error) {
-    console.error("MongoDB connection failed", error);
+    console.log("MongoDB connection failed", error);
   }
 };

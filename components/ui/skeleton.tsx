@@ -1,7 +1,10 @@
+import React from "react";
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
 
-function Skeleton({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+function Skeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(

@@ -1,10 +1,13 @@
 import { BADGE_CRITERIA } from "@/constants";
 
-export type ThemeName = "light" | "dark" | "system";
+export interface FilterProps {
+  name: string;
+  value: string;
+}
 
-export interface IThemes {
-  value: ThemeName;
+export interface ThemeOption {
   label: string;
+  value: string;
   icon: string;
 }
 
@@ -16,16 +19,22 @@ export interface SidebarLink {
 
 export interface Job {
   id?: string;
-  employerName?: string;
-  employerLogo?: string | undefined;
-  employerWebsite?: string;
-  jobEmploymentType?: string;
-  jobTitle?: string;
-  jobDescription?: string;
-  jobApplyLink?: string;
-  jobCity?: string;
-  jobState?: string;
-  jobCountry?: string;
+  employer_name?: string;
+  employer_logo?: string | undefined;
+  employer_website?: string;
+  job_employment_type?: string;
+  job_title?: string;
+  job_description?: string;
+  job_apply_link?: string;
+  job_city?: string;
+  job_state?: string;
+  job_country?: string;
+}
+
+export interface Country {
+  name: {
+    common: string;
+  };
 }
 
 export interface ParamsProps {
@@ -49,7 +58,20 @@ export interface BadgeCounts {
 
 export type BadgeCriteriaType = keyof typeof BADGE_CRITERIA;
 
-export interface IFilterOptions {
-  name: string;
-  value: string;
+export interface UrlQueryParams {
+  params: string;
+  key: string;
+  value: string | null;
+}
+
+export interface RemoveUrlQueryParams {
+  params: string;
+  keysToRemove: string[];
+}
+
+export interface BadgeParams {
+  criteria: {
+    type: keyof typeof BADGE_CRITERIA;
+    count: number;
+  }[];
 }

@@ -1,28 +1,28 @@
 "use client";
 
-import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
+import { useEffect } from "react";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+
+import { toast } from "@/components/ui/use-toast";
+
+import { upvoteAnswer, downvoteAnswer } from "@/lib/actions/answer.action";
 import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
   downvoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
 import { toggleSaveQuestion } from "@/lib/actions/user.action";
-import { formatAndDivideNumber } from "@/lib/utils";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useCallback, useEffect } from "react";
-import { toast } from "../ui/use-toast";
+import { getFormattedNumber } from "@/lib/utils";
 
-interface Props {
+import type { UserId, Voting } from "@/lib/actions/shared.types";
+
+interface Props extends UserId, Voting {
   type: string;
   itemId: string;
-  userId: string;
   upvotes: number;
-  hasAlreadyUpvoted: boolean;
   downvotes: number;
-  hasAlreadyDownvoted: boolean;
   hasSaved?: boolean;
-  disableVoting: boolean;
 }
 
 const Votes = ({
@@ -30,112 +30,94 @@ const Votes = ({
   itemId,
   userId,
   upvotes,
-  hasAlreadyUpvoted,
+  hasupVoted,
   downvotes,
-  hasAlreadyDownvoted,
+  hasdownVoted,
   hasSaved,
-  disableVoting,
 }: Props) => {
+  const router = useRouter();
   const pathname = usePathname();
 
-  const handleSave = useCallback(async () => {
-    if (!userId) {
-      return toast({
-        title: "Please log in",
-        description: "You must be logged in to perform this action",
-      });
-    }
+  useEffect(() => {
+    viewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined,
+    });
+  }, [itemId, userId, pathname, router]);
+
+  const handleSave = async () => {
     await toggleSaveQuestion({
       userId: JSON.parse(userId),
       questionId: JSON.parse(itemId),
       path: pathname,
     });
-    return toast({
+
+    toast({
       title: `Question ${
-        !hasSaved ? "saved in" : "removed from"
-      } your collection`,
+        !hasSaved ? "saved" : "removed from your collection"
+      } 🎉`,
       variant: !hasSaved ? "default" : "destructive",
     });
-  }, [hasSaved, itemId, pathname, userId]);
+  };
 
-  const handleVote = useCallback(
-    async (action: string) => {
-      if (disableVoting) {
-        return;
-      }
-      if (!userId) {
-        return toast({
-          title: "Please log in",
-          description: "You must be logged in to perform this action",
-        });
-      }
-      if (action === "upvote") {
-        if (type === "Question") {
-          await upvoteQuestion({
-            questionId: JSON.parse(itemId),
-            userId: JSON.parse(userId),
-            hasAlreadyUpvoted,
-            hasAlreadyDownvoted,
-            path: pathname,
-          });
-        } else if (type === "Answer") {
-          await upvoteAnswer({
-            answerId: JSON.parse(itemId),
-            userId: JSON.parse(userId),
-            hasAlreadyUpvoted,
-            hasAlreadyDownvoted,
-            path: pathname,
-          });
-        }
-        return toast({
-          title: `Upvote ${!hasAlreadyUpvoted ? "successful" : "removed"}`,
-          variant: !hasAlreadyUpvoted ? "default" : "destructive",
-        });
-      }
-
-      if (action === "downvote") {
-        if (type === "Question") {
-          await downvoteQuestion({
-            questionId: JSON.parse(itemId),
-            userId: JSON.parse(userId),
-            hasAlreadyUpvoted,
-            hasAlreadyDownvoted,
-            path: pathname,
-          });
-        } else if (type === "Answer") {
-          await downvoteAnswer({
-            answerId: JSON.parse(itemId),
-            userId: JSON.parse(userId),
-            hasAlreadyUpvoted,
-            hasAlreadyDownvoted,
-            path: pathname,
-          });
-        }
-        return toast({
-          title: `Downvote ${!hasAlreadyDownvoted ? "successful" : "removed"}`,
-          variant: !hasAlreadyDownvoted ? "default" : "destructive",
-        });
-      }
-    },
-    [
-      disableVoting,
-      hasAlreadyDownvoted,
-      hasAlreadyUpvoted,
-      itemId,
-      pathname,
-      type,
-      userId,
-    ]
-  );
-
-  useEffect(() => {
-    if (type === "Question") {
-      viewQuestion({
-        questionId: JSON.parse(itemId),
-        userId: userId ? JSON.parse(userId) : undefined,
+  const handleVote = async (action: string) => {
+    if (!userId) {
+      return toast({
+        title: "Not signed in",
+        description: "You need to be signed in to vote ⚠️",
       });
     }
-  }, [itemId, type, userId]);
+
+    if (action === "upvote") {
+      if (type === "Question") {
+        await upvoteQuestion({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      } else if (type === "Answer") {
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      }
+
+      toast({
+        title: `Upvote ${!hasupVoted ? "added" : "removed"} 🎉`,
+        variant: !hasupVoted ? "default" : "destructive",
+      });
+    }
+
+    if (action === "downvote") {
+      if (type === "Question") {
+        await downvoteQuestion({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      } else if (type === "Answer") {
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      }
+
+      toast({
+        title: `Downvote ${!hasdownVoted ? "added" : "removed"} 🎉`,
+        variant: !hasdownVoted ? "default" : "destructive",
+      });
+    }
+  };
 
   return (
     <div className="flex gap-5">
@@ -143,22 +125,20 @@ const Votes = ({
         <div className="flex-center gap-1.5">
           <Image
             src={
-              hasAlreadyUpvoted
+              hasupVoted
                 ? "/assets/icons/upvoted.svg"
                 : "/assets/icons/upvote.svg"
             }
             width={18}
             height={18}
             alt="upvote"
-            className={`${
-              disableVoting ? "cursor-not-allowed" : "cursor-pointer"
-            }`}
+            className="cursor-pointer"
             onClick={() => handleVote("upvote")}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
-              {formatAndDivideNumber(upvotes)}
+              {getFormattedNumber(upvotes)}
             </p>
           </div>
         </div>
@@ -166,22 +146,20 @@ const Votes = ({
         <div className="flex-center gap-1.5">
           <Image
             src={
-              hasAlreadyDownvoted
+              hasdownVoted
                 ? "/assets/icons/downvoted.svg"
                 : "/assets/icons/downvote.svg"
             }
             width={18}
             height={18}
             alt="downvote"
-            className={`${
-              disableVoting ? "cursor-not-allowed" : "cursor-pointer"
-            }`}
+            className="cursor-pointer"
             onClick={() => handleVote("downvote")}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
-              {formatAndDivideNumber(downvotes)}
+              {getFormattedNumber(downvotes)}
             </p>
           </div>
         </div>

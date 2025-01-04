@@ -1,7 +1,12 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+
 import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form,
   FormControl,
@@ -12,64 +17,69 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
-import { useCallback, useState } from "react";
-import { ProfileSchema } from "@/lib/validations";
-import { usePathname, useRouter } from "next/navigation";
-import { updateUser } from "@/lib/actions/user.action";
-import { toast } from "../ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
-interface Props {
-  clerkId: string;
+import { updateUser } from "@/lib/actions/user.action";
+import { ProfileValidation } from "@/lib/validations";
+
+import type { ClerkId } from "@/lib/actions/shared.types";
+
+interface Props extends ClerkId {
   user: string;
 }
-
 const Profile = ({ clerkId, user }: Props) => {
-  const parsedUser = JSON.parse(user);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const parsedUser = JSON.parse(user);
 
-  const form = useForm<z.infer<typeof ProfileSchema>>({
-    resolver: zodResolver(ProfileSchema),
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const form = useForm<z.infer<typeof ProfileValidation>>({
+    resolver: zodResolver(ProfileValidation),
     defaultValues: {
-      name: parsedUser.name ?? "",
-      username: parsedUser.username ?? "",
-      portfolioWebsite: parsedUser.portfolioWebsite ?? "",
-      location: parsedUser.location ?? "",
-      bio: parsedUser.bio ?? "",
+      name: parsedUser?.name || "",
+      username: parsedUser?.username || "",
+      portfolioWebsite: parsedUser?.portfolioWebsite || "",
+      location: parsedUser?.location || "",
+      bio: parsedUser?.bio || "",
     },
   });
 
-  const onSubmit = useCallback(
-    async (values: z.infer<typeof ProfileSchema>) => {
-      setIsSubmitting(true);
-      try {
-        await updateUser({
-          clerkId,
-          updateData: {
-            name: values.name,
-            username: values.username,
-            portfolioWebsite: values.portfolioWebsite,
-            location: values.location,
-            bio: values.bio,
-          },
-          path: pathname,
-        });
-        router.back();
-      } catch (error) {
-        console.error(error);
-        toast({
-          title: "Failed to update profile",
-          variant: "destructive",
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [clerkId, pathname, router]
-  );
+  async function onSubmit(values: z.infer<typeof ProfileValidation>) {
+    setIsSubmitting(true);
+
+    try {
+      await updateUser({
+        clerkId,
+        updateData: {
+          name: values.name,
+          username: values.username,
+          portfolioWebsite: values.portfolioWebsite,
+          location: values.location,
+          bio: values.bio,
+          onboarded: true,
+        },
+        path: pathname,
+      });
+
+      router.push("/");
+    } catch (error) {
+      toast({
+        title: "Error updating profile ⚠️",
+        variant: "destructive",
+      });
+
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+
+      toast({
+        title: "Profile updated successfully 🎉",
+        variant: "default",
+      });
+    }
+  }
 
   return (
     <Form {...form}>
@@ -92,10 +102,11 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="username"
@@ -111,10 +122,11 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="portfolioWebsite"
@@ -126,12 +138,12 @@ const Profile = ({ clerkId, user }: Props) => {
               <FormControl>
                 <Input
                   type="url"
-                  placeholder="Your portfolio URL"
+                  placeholder="Your portfolio url"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -146,12 +158,12 @@ const Profile = ({ clerkId, user }: Props) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Where are you from?"
+                  placeholder="Your location"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -162,16 +174,16 @@ const Profile = ({ clerkId, user }: Props) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Bio <span className="text-primary-500">*</span>
+                Bio
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="What's special about you?"
+                  placeholder="Tell us about yourself"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -179,7 +191,7 @@ const Profile = ({ clerkId, user }: Props) => {
         <div className="mt-7 flex justify-end">
           <Button
             type="submit"
-            className="primary-gradient w-fit !text-light-900"
+            className="primary-gradient w-fit"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Saving..." : "Save"}

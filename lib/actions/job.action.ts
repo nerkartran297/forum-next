@@ -1,60 +1,116 @@
-"use server";
+import { readFileSync } from "fs";
+import path from "path";
 
-import { Job } from "@/types";
-import { formatJobApiResponse } from "../utils";
-import { JobFilterParams } from "./shared.types";
+import type { GetJobsParams } from "./shared.types";
 
-export const fetchLocation = async () => {
+let _jsearch: any;
+let _countries: any;
+
+export async function getJobs(params: GetJobsParams) {
   try {
-    const response = await fetch(
-      `http://api.ipapi.com/api/check?access_key=${process.env.NEXT_PUBLIC_IP_API_ACCESS_KEY}&output=json&fields=main&language=en`
+    const {
+      page = 1,
+      pageSize = 10,
+      filter,
+      location,
+      remote,
+      wage,
+      skills,
+      searchQuery,
+    } = params;
+
+    // Calculate the number of jobs to skip based on the page number and page size
+    const skipAmount = (page - 1) * pageSize;
+
+    if (!_jsearch) {
+      const file = path.join(process.cwd(), "content", "jsearch.json");
+      const fileSync = readFileSync(file, "utf8");
+
+      const jsonData = JSON.parse(fileSync);
+
+      _jsearch = jsonData;
+    }
+
+    const allJobs = _jsearch.data || [];
+
+    const searchQueryRegExp = new RegExp(
+      (searchQuery || "").toLowerCase(),
+      "i"
     );
-    const result = await response.json();
-    return `${result.region_name}, ${result.country_name}` ?? "";
-  } catch (error) {
-    console.error(error);
-    return "";
-  }
-};
+    const locationRegExp = new RegExp((location || "").toLowerCase(), "i");
 
-export const fetchCountries = async () => {
-  try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
-    const result = await response.json();
-    const countriesCommonName =
-      result.map((data: { name: { common: string } }) => data?.name?.common) ??
-      [];
-    const countryNames: string[] = countriesCommonName.filter(
-      (item: null | undefined | string) => item !== null && item !== undefined
-    );
-    countryNames.sort();
-    return countryNames;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+    const filteredJobs = allJobs.filter((job: any) => {
+      return (
+        job &&
+        searchQueryRegExp.test(job.job_title) &&
+        locationRegExp.test(job.job_country) &&
+        (!remote || job.job_is_remote === true) &&
+        (!wage ||
+          (job.job_min_salary !== null && job.job_max_salary !== null)) &&
+        (!skills || job.job_required_skills)
+      );
+    });
 
-export const fetchJobs = async (filters: JobFilterParams) => {
-  try {
-    const { query, page } = filters;
-    const headers = {
-      "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY ?? "",
-      "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST ?? "",
+    let filterOptions = {
+      job_employment_type: "",
     };
-    const response = await fetch(
-      `https://jsearch.p.rapidapi.com/search?query=${query}&page=${page}`,
-      {
-        headers,
-      }
-    );
-    const jobsData = await response.json();
-    const result: Job[] = jobsData.data.map((job: any) =>
-      formatJobApiResponse(job)
-    );
-    return result;
+
+    switch (filter) {
+      case "fulltime":
+        filterOptions = { job_employment_type: "FULLTIME" };
+        break;
+      case "parttime":
+        filterOptions = { job_employment_type: "PARTTIME" };
+        break;
+      case "contractor":
+        filterOptions = { job_employment_type: "CONTRACTOR" };
+        break;
+      case "intern":
+        filterOptions = { job_employment_type: "INTERN" };
+        break;
+      default:
+        filterOptions = { job_employment_type: "" };
+        break;
+    }
+
+    const data = filteredJobs
+      .filter((job: any) =>
+        filterOptions.job_employment_type !== ""
+          ? job.job_employment_type === filterOptions.job_employment_type
+          : true
+      )
+      .slice(skipAmount, skipAmount + pageSize);
+
+    const totalJobs = allJobs.length;
+
+    const isNext = totalJobs > skipAmount + data.length;
+
+    return { data, isNext };
   } catch (error) {
-    console.error(error);
-    return [];
+    console.log(error);
+    throw error;
   }
-};
+}
+
+export async function getCountryFilters() {
+  try {
+    if (!_countries) {
+      const file = path.join(process.cwd(), "content", "countries.json");
+      const fileSync = readFileSync(file, "utf8");
+
+      const jsonData = JSON.parse(fileSync);
+
+      _countries = jsonData;
+    }
+
+    const result = _countries.map((country: any) => ({
+      name: country.name,
+      value: country.cca2,
+    }));
+
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    throw error;
+  }
+}

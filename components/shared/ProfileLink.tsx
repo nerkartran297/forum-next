@@ -1,13 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
-interface ProfileLinkProps {
+interface Props {
   imgUrl: string;
-  href?: string;
   title: string;
+  href?: string;
 }
-
-const ProfileLink = ({ imgUrl, href, title }: ProfileLinkProps) => {
+const ProfileLink = ({ imgUrl, title, href }: Props) => {
   return (
     <div className="flex-center gap-1">
       <Image src={imgUrl} alt="icon" width={20} height={20} />
@@ -16,7 +15,8 @@ const ProfileLink = ({ imgUrl, href, title }: ProfileLinkProps) => {
         <Link
           href={href}
           target="_blank"
-          className="paragraph-medium text-blue-500">
+          className="paragraph-medium text-blue-500"
+        >
           {title}
         </Link>
       ) : (
