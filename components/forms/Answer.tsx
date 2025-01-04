@@ -107,13 +107,18 @@ const Answer = ({
 
         setIsSubmittingAi(true);
 
+        const editor = editorRef.current as any;
+        const currentContent = editor.getContent({ format: "text" });
+
         try {
             const response = await fetch("/api/openai", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ question }),
+                body: JSON.stringify({
+                    question: `This is the question: ${question}. Here is my current idea: ${currentContent}`,
+                }),
             });
 
             if (!response.ok) {

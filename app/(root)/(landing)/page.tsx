@@ -31,7 +31,7 @@ const LandingPage = () => {
     ];
 
     return (
-        <div className="min-h-screen background-light900_dark200">
+        <div className="min-h-screen background-light900_dark200 rounded-lg">
             {/* Hero Section */}
             <div className="relative overflow-hidden">
                 <div className="max-w-7xl mx-auto">
@@ -99,10 +99,11 @@ const LandingPage = () => {
                                             knowledge, and grow together.
                                         </p>
                                     </div>
-
-                                    <button className="w-full py-4 primary-gradient text-light-900 font-semibold rounded-lg transform transition-transform duration-200 group-hover:scale-105">
-                                        Browse Questions
-                                    </button>
+                                    <Link href="/home">
+                                        <button className="w-full py-4 primary-gradient text-light-900 font-semibold rounded-lg transform transition-transform duration-200 group-hover:scale-105">
+                                            Browse Questions
+                                        </button>
+                                    </Link>
                                 </div>
                                 {/* Decorative geometric shapes */}
                                 <div className="absolute top-0 right-0 w-32 h-32 primary-gradient transform rotate-45 translate-x-16 -translate-y-16"></div>
