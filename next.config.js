@@ -19,14 +19,6 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer, dev }) => {
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        'scheduler/tracing': 'scheduler/tracing-profiling',
-      });
-    }
-    return config;
-  }
 };
 
-module.exports = nextConfig;  
+module.exports = nextConfig;
