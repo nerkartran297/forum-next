@@ -198,24 +198,24 @@ nextjs14-devoverflow/
 
 <details><summary>Table of Contents</summary>
 
-- [Live Demo](#-live-demo)
-- [Description](#-description)
-- [Technologies Used](#-technologies-used)
-- [Get Started](#-get-started)
-  - [Prerequisites](#-prerequisites)
-  - [Installation and Run Locally](#-installation-and-run-locally)
-  - [Scripts](#-scripts)
-- [Environment Variables](#-environment-variables)
-- [Deployment](#-deployment)
-  - [Deploy to production (manual)](#-deploy-to-production-manual)
-  - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
-  - [Deploy on Netlify](#-deploy-on-netlify)
-- [Contributing](#-contributing)
-  - [Bug / Feature Request](#-bug--feature-request)
-- [Acknowledgements](#-acknowledgements)
-- [References](#-references)
-- [Contact Us](#-contact-us)
-- [License](#-license)
+-   [Live Demo](#-live-demo)
+-   [Description](#-description)
+-   [Technologies Used](#-technologies-used)
+-   [Get Started](#-get-started)
+    -   [Prerequisites](#-prerequisites)
+    -   [Installation and Run Locally](#-installation-and-run-locally)
+    -   [Scripts](#-scripts)
+-   [Environment Variables](#-environment-variables)
+-   [Deployment](#-deployment)
+    -   [Deploy to production (manual)](#-deploy-to-production-manual)
+    -   [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
+    -   [Deploy on Netlify](#-deploy-on-netlify)
+-   [Contributing](#-contributing)
+    -   [Bug / Feature Request](#-bug--feature-request)
+-   [Acknowledgements](#-acknowledgements)
+-   [References](#-references)
+-   [Contact Us](#-contact-us)
+-   [License](#-license)
 
 </details>
 
@@ -223,21 +223,21 @@ nextjs14-devoverflow/
 
 <details><summary><b>DevOverflow</b> is built using the following technologies:</summary>
 
-- [TypeScript](https://www.typescriptlang.org/): TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-- [Next.js](https://nextjs.org/): Next.js is a React framework for building server-side rendered and statically generated web applications.
-- [Tailwind CSS](https://tailwindcss.com/): Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces.
-- [ESLint](https://eslint.org/): ESLint is a static code analysis tool for identifying problematic patterns found in JavaScript code.
-- [Prettier](https://prettier.io/): Prettier is an opinionated code formatter.
-- [Clerk](https://clerk.dev/): Clerk is a developer-first authentication API that handles all the logic for user sign up, sign in, and more.
-- [Shadcn-UI](https://ui.shadcn.com/): Shadcn UI is a React UI library that helps developers rapidly build modern web applications.
-- [TinyMCE](https://www.tiny.cloud/): TinyMCE is the world's most popular JavaScript library for rich text editing.
-- [MongoDB](https://www.mongodb.com/): MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
-- [Mongoose](https://mongoosejs.com/): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
-- [Prism.js](https://prismjs.com/): Prism is a lightweight, extensible syntax highlighter, built with modern web standards in mind.
-- [Query String](https://www.npmjs.com/package/query-string): Parse and stringify URL query strings.
-- [Svix](https://svix.com/): Svix is a webhook proxy that allows you to receive webhooks locally.
-- [Zod](https://zod.dev/): Zod is a TypeScript-first schema declaration and validation library.
-- [Vercel](https://vercel.com/): Vercel is a cloud platform for frontend developers, providing the frameworks, workflows, and infrastructure to build a faster, more personalized Web.
+-   [TypeScript](https://www.typescriptlang.org/): TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+-   [Next.js](https://nextjs.org/): Next.js is a React framework for building server-side rendered and statically generated web applications.
+-   [Tailwind CSS](https://tailwindcss.com/): Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces.
+-   [ESLint](https://eslint.org/): ESLint is a static code analysis tool for identifying problematic patterns found in JavaScript code.
+-   [Prettier](https://prettier.io/): Prettier is an opinionated code formatter.
+-   [Clerk](https://clerk.dev/): Clerk is a developer-first authentication API that handles all the logic for user sign up, sign in, and more.
+-   [Shadcn-UI](https://ui.shadcn.com/): Shadcn UI is a React UI library that helps developers rapidly build modern web applications.
+-   [TinyMCE](https://www.tiny.cloud/): TinyMCE is the world's most popular JavaScript library for rich text editing.
+-   [MongoDB](https://www.mongodb.com/): MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+-   [Mongoose](https://mongoosejs.com/): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+-   [Prism.js](https://prismjs.com/): Prism is a lightweight, extensible syntax highlighter, built with modern web standards in mind.
+-   [Query String](https://www.npmjs.com/package/query-string): Parse and stringify URL query strings.
+-   [Svix](https://svix.com/): Svix is a webhook proxy that allows you to receive webhooks locally.
+-   [Zod](https://zod.dev/): Zod is a TypeScript-first schema declaration and validation library.
+-   [Vercel](https://vercel.com/): Vercel is a cloud platform for frontend developers, providing the frameworks, workflows, and infrastructure to build a faster, more personalized Web.
 
 </details><br/>
 
@@ -251,20 +251,21 @@ To get this project up and running in your development environment, follow these
 
 In order to install and run this project locally, you would need to have the following installed on your local machine.
 
-- [Node.js](https://nodejs.org/en/)
-- [NPM](https://www.npmjs.com/get-npm)
-- [Git](https://git-scm.com/downloads)
+-   [Node.js](https://nodejs.org/en/)
+-   [NPM](https://www.npmjs.com/get-npm)
+-   [Git](https://git-scm.com/downloads)
 
 ### ⚙️ Installation and Run Locally
 
 **Step 0:**
 
 > [!IMPORTANT]
-> - the application uses Clerk for Authentication and User Management, therefore, you need to create Clerk account [here](https://clerk.dev/) and sets the `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` environment variables in `.env` file. Also, the different URLs for the Clerk sign-in, sign-up, after sign-in and after sign-up pages.
-> - the application uses a MongoDB database, therefore, you need to create a database and connect it to the application, for this, change the `MONGODB_URL` environment variable in `.env` file located in `server` folder.
-> - the application uses TinyMCE, therefore, you need to create TinyMCE account [here](https://www.tiny.cloud/) and sets the `NEXT_PUBLIC_TINYMCE_API_KEY` environment variable in `.env` file.
-> - the application uses OpenAI API, therefore, you need to create OpenAI account [here](https://openai.com/) and sets the `OPENAI_API_KEY` environment variable in `.env` file.
-> - the application uses RapidAPI, therefore, you need to create RapidAPI account [here](https://rapidapi.com/), subscribe to the [JSearch API](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch/) and sets the `RAPIDAPI_API_KEY` environment variable in `.env` file.
+>
+> -   the application uses Clerk for Authentication and User Management, therefore, you need to create Clerk account [here](https://clerk.dev/) and sets the `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` environment variables in `.env` file. Also, the different URLs for the Clerk sign-in, sign-up, after sign-in and after sign-up pages.
+> -   the application uses a MongoDB database, therefore, you need to create a database and connect it to the application, for this, change the `MONGODB_URL` environment variable in `.env` file located in `server` folder.
+> -   the application uses TinyMCE, therefore, you need to create TinyMCE account [here](https://www.tiny.cloud/) and sets the `NEXT_PUBLIC_TINYMCE_API_KEY` environment variable in `.env` file.
+> -   the application uses OpenAI API, therefore, you need to create OpenAI account [here](https://openai.com/) and sets the `OPENAI_API_KEY` environment variable in `.env` file.
+> -   the application uses RapidAPI, therefore, you need to create RapidAPI account [here](https://rapidapi.com/), subscribe to the [JSearch API](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch/) and sets the `RAPIDAPI_API_KEY` environment variable in `.env` file.
 
 After following all the instructions above, we'll want to create a new webhook on Clerk. To do this, go to the [Clerk Dashboard](https://dashboard.clerk.dev/), click on the "Webhooks" tab, and then click "Add Endpoint". For the Endpoint URL, enter `http://<PASTE-YOUR-LINK-HERE>/api/webhook/clerk`. For the events, select the "user". Then click "Create" to create the webhook. get the signing secret and set it as `CLERK_WEBHOOK_SECRET` environment variable in `.env` file.
 
@@ -388,18 +389,18 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 I'd like to express my gratitude to the following people who helped me with this project and made it possible:
 
-- [Clerk](https://clerk.dev/)
-- [MongoDB](https://mongodb.com)
-- [Mongoose](https://mongoosejs.com/)
-- [Zod](https://zod.dev/)
-- [Shadcn](https://shadcn.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Svix](https://svix.com/)
-- [TinyMCE](https://www.tiny.cloud/)
-- [OpenAI API](https://openai.com/blog/openai-api)
-- [RapidAPI](https://rapidapi.com/)
-- [Vercel](https://vercel.com/)
-- [JavaScript Mastery](https://www.jsmastery.pro/)
+-   [Clerk](https://clerk.dev/)
+-   [MongoDB](https://mongodb.com)
+-   [Mongoose](https://mongoosejs.com/)
+-   [Zod](https://zod.dev/)
+-   [Shadcn](https://shadcn.com/)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Svix](https://svix.com/)
+-   [TinyMCE](https://www.tiny.cloud/)
+-   [OpenAI API](https://openai.com/blog/openai-api)
+-   [RapidAPI](https://rapidapi.com/)
+-   [Vercel](https://vercel.com/)
+-   [JavaScript Mastery](https://www.jsmastery.pro/)
 
 ## 📚 References
 
