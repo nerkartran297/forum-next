@@ -11,19 +11,19 @@ import Link from "next/link";
 const LandingPage = () => {
     const features = [
         {
-            icon: <MessageCircle className="h-6 w-6" />,
+            icon: <MessageCircle className="size-6" />,
             title: "Engaging Discussions",
             description:
                 "Join vibrant conversations on topics that matter to you",
         },
         {
-            icon: <Users className="h-6 w-6" />,
+            icon: <Users className="size-6" />,
             title: "Community-Driven",
             description:
                 "Connect with like-minded individuals in a supportive environment",
         },
         {
-            icon: <TrendingUp className="h-6 w-6" />,
+            icon: <TrendingUp className="size-6" />,
             title: "Trending Topics",
             description:
                 "Stay updated with the latest discussions and hot topics",
@@ -87,8 +87,8 @@ const LandingPage = () => {
                             <div className="relative h-96 background-light900_dark200 light-border overflow-hidden">
                                 <div className="relative h-full p-8 flex flex-col justify-between background-light800_dark300">
                                     <div>
-                                        <div className="w-16 h-16 primary-gradient rounded-lg flex items-center justify-center mb-6">
-                                            <MessageCircle className="h-8 w-8 text-light-900" />
+                                        <div className="size-16 primary-gradient rounded-lg flex items-center justify-center mb-6">
+                                            <MessageCircle className="size-8 text-light-900" />
                                         </div>
                                         <h3 className="text-2xl font-bold text-dark100_light900 mb-4">
                                             DevOverflow
@@ -106,8 +106,8 @@ const LandingPage = () => {
                                     </Link>
                                 </div>
                                 {/* Decorative geometric shapes */}
-                                <div className="absolute top-0 right-0 w-32 h-32 primary-gradient transform rotate-45 translate-x-16 -translate-y-16"></div>
-                                <div className="absolute bottom-0 left-0 w-24 h-24 primary-gradient opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
+                                <div className="absolute top-0 right-0 size-32 primary-gradient transform rotate-45 translate-x-16 -translate-y-16"></div>
+                                <div className="absolute bottom-0 left-0 size-24 primary-gradient opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
                             </div>
                         </div>
 
@@ -116,8 +116,8 @@ const LandingPage = () => {
                             <div className="relative h-96 background-light900_dark200 light-border overflow-hidden">
                                 <div className="relative h-full p-8 flex flex-col justify-between background-light800_dark300">
                                     <div>
-                                        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mb-6">
-                                            <Video className="h-8 w-8 text-light-900" />
+                                        <div className="size-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mb-6">
+                                            <Video className="size-8 text-light-900" />
                                         </div>
                                         <h3 className="text-2xl font-bold text-dark100_light900 mb-4">
                                             YOOM
@@ -135,8 +135,8 @@ const LandingPage = () => {
                                     </Link>
                                 </div>
                                 {/* Decorative geometric shapes */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-r from-purple-500 to-blue-500 transform rotate-45 translate-x-16 -translate-y-16"></div>
-                                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-r from-purple-500 to-blue-500 opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
+                                <div className="absolute top-0 right-0 size-32 bg-gradient-to-r from-purple-500 to-blue-500 transform rotate-45 translate-x-16 -translate-y-16"></div>
+                                <div className="absolute bottom-0 left-0 size-24 bg-gradient-to-r from-purple-500 to-blue-500 opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
                             </div>
                         </div>
 
@@ -145,8 +145,8 @@ const LandingPage = () => {
                             <div className="relative h-96 background-light900_dark200 light-border overflow-hidden">
                                 <div className="relative h-full p-8 flex flex-col justify-between background-light800_dark300">
                                     <div>
-                                        <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mb-6">
-                                            <FileText className="h-8 w-8 text-light-900" />
+                                        <div className="size-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mb-6">
+                                            <FileText className="size-8 text-light-900" />
                                         </div>
                                         <h3 className="text-2xl font-bold text-dark100_light900 mb-4">
                                             LiveDocs
@@ -164,8 +164,8 @@ const LandingPage = () => {
                                     </Link>
                                 </div>
 
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-r from-green-500 to-teal-500 transform rotate-45 translate-x-16 -translate-y-16"></div>
-                                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-r from-green-500 to-teal-500 opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
+                                <div className="absolute top-0 right-0 size-32 bg-gradient-to-r from-green-500 to-teal-500 transform rotate-45 translate-x-16 -translate-y-16"></div>
+                                <div className="absolute bottom-0 left-0 size-24 bg-gradient-to-r from-green-500 to-teal-500 opacity-50 transform -rotate-45 -translate-x-12 translate-y-12"></div>
                             </div>
                         </div>
                     </div>
